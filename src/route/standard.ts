@@ -1,6 +1,6 @@
-import { handleError } from "./util";
-import { Document, Model } from "mongoose";
 import { Router } from "express";
+import { Document, Model } from "mongoose";
+import { handleError } from "./util";
 
 type MongoModel = Model<Document, {}>;
 
@@ -25,9 +25,7 @@ function getData(mongoModel: MongoModel) {
       const collection = mongoModel.find(query);
       const limit = parseInt(reqLimit, undefined);
 
-      /** @type {any[]} The data returned by the find query. */
-      // @ts-ignore
-      const { previous, next, results, ...rest } = await mongoModel.paginate({
+      const { previous, next, results } = await mongoModel.paginate({
         query,
         limit
       });
