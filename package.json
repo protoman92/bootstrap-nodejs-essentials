@@ -4,15 +4,17 @@
   "description": "Library of essentials for a bootstrapped Node.js project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/protoman92/bootstrap-nodejs-essentials.git"
   },
   "keywords": [
+    "bootstrap",
     "node.js",
-    "bootstrap"
+    "typescript"
   ],
   "author": "Hai Pham <swiften.svc@gmail.com>",
   "license": "MIT",
@@ -27,7 +29,17 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.0",
+    "@types/jest": "^24.0.15",
     "@types/mongoose": "^5.5.8",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "ts-mockito": "^2.3.1",
     "typescript": "^3.5.3"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }
