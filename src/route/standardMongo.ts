@@ -17,7 +17,17 @@ function createData(mongoModel: MongoModel) {
 
 function getData(mongoModel: MongoModel) {
   return handleError(
-    async ({ query: { limit: reqLimit, ...reqQuery } }, res) => {
+    async (
+      {
+        query: {
+          limit: reqLimit,
+          previous: prevObject,
+          next: nextObject,
+          ...reqQuery
+        }
+      },
+      res
+    ) => {
       const query = Object.entries(reqQuery)
         .map(([key, value]) => ({ [key]: { $in: value } }))
         .reduce((acc, val) => ({ ...acc, ...val }), {});
@@ -25,23 +35,32 @@ function getData(mongoModel: MongoModel) {
       const collection = mongoModel.find(query);
       const limit = parseInt(reqLimit, undefined);
 
-      const { previous, next, results } = await mongoModel.paginate({
+      const {
+        previous,
+        next,
+        hasNext,
+        results,
+        hasPrevious
+      } = await mongoModel.paginate<any>({
         query,
-        limit
+        limit,
+        next: nextObject,
+        previous: prevObject
       });
 
       /**
-       * @type {number} This is the raw count that ignores pagination, i.e. the
-       * number of items that matches the query.
+       * This is the raw count that ignores pagination, i.e. the number of items
+       * that matches the query.
        */
-      const count = await collection.estimatedDocumentCount();
+      const count: number = await collection.estimatedDocumentCount();
 
       res.status(200).json({
         count,
-        // @ts-ignore
         data: results.map(({ _id: id, ...datum }) => ({ id, ...datum })),
         next,
-        previous
+        hasNext,
+        previous,
+        hasPrevious
       });
     }
   );

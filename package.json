@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
+    "test:server": "ts-node ./test/index.js",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
@@ -38,6 +39,7 @@
     "ts-essentials": "^2.0.12",
     "ts-jest": "^24.0.2",
     "ts-mockito": "^2.3.1",
+    "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
   },
   "files": [

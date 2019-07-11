@@ -5,8 +5,8 @@ export function handleError(fn: RequestHandler): RequestHandler {
   return async (req, res, next) => {
     try {
       await fn(req, res, next);
-    } catch (e) {
-      res.status(500).json(e);
+    } catch ({ message, name }) {
+      res.status(500).json({ message, name });
     }
   };
 }

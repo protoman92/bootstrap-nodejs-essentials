@@ -1,4 +1,5 @@
 import { AxiosRequestConfig } from "axios";
+import "./mongoPagination";
 
 declare module "mongoose" {
   interface PaginateParameters {
