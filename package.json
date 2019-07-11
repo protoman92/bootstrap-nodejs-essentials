@@ -1,0 +1,33 @@
+{
+  "name": "bootstrap-nodejs-essentials",
+  "version": "1.0.0",
+  "description": "Library of essentials for a bootstrapped Node.js project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/protoman92/bootstrap-nodejs-essentials.git"
+  },
+  "keywords": [
+    "node.js",
+    "bootstrap"
+  ],
+  "author": "Hai Pham <swiften.svc@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/protoman92/bootstrap-nodejs-essentials/issues"
+  },
+  "homepage": "https://github.com/protoman92/bootstrap-nodejs-essentials#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongo-cursor-pagination": "^7.1.0",
+    "mongoose": "^5.6.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.0",
+    "@types/mongoose": "^5.5.8",
+    "typescript": "^3.5.3"
+  }
+}
