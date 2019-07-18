@@ -18,6 +18,7 @@ deploy:
   email: swiften.svc@gmail.com
   api_key:
     secure: UUVnKz961HnOeRiROEfPQOVGSpBR5B80R1rvdIpOmCo/49VAPMmaiIqM22ymD5dcA+danR8RHWBUsy2LtIWrWEoAs1+RvVWgOMUbu1lX/95mJmGybCe8ndUAJZHf06EVsP29d1DdMKYQ1S6XOa01WkeYMu+GW97RaVJ25eFqAT+8H3K4r4ryr2Dg5jxmhresYNcDqWROu1O5K7EZtROC/JorgvMA4CfcX6bcPN0TkNQOxMixCMJrpVeQNQ6MuHeuBqW2xJhr2omx1gMvSIgPPkW8lAj8trDhei50Ar2N0kTboFtrbV8Su4ryUID2m7QEPp1LfMpjHkDhrmTAtR0qeXcLe6nhrmrFHZATv9Snq6fhhfGLtmBw/64aQ8+QdF8eQihCR8VfdsT/fL1vXSQLu2+cg+xB+JRt18s5Bb7guGaBr5vlbLd0fw9pMvqvsMlJ6ViE3cXlV7/P+WEiP79PHEB2iAuIOX4tzfCWGmSKZ6CXyTCyLbE2QLoGWak4q1HeMNUaHX+Q7UjFO2RQSMM5Kz5FhzaY089Li5J4rmt5viTUCaXp3H0xPsEyR5GbqM0coG+bGhiwbm499DTrUWgDZEGCCK0oPeFPu+3Pv/c89qydBtIZRAGNd0C86bRjOu/V0ylkBSnc59IJ/0UMHBaBTHWuCwQfGDh42cM4MlEWtzc=
+  skip_cleanup: true
   on:
     tags: true
     repo: protoman92/bootstrap-nodejs-essentials
