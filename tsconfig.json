@@ -2,9 +2,10 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "allowJs": true,
-    "checkJs": true,
+    "allowJs": false,
+    "checkJs": false,
     "outDir": "dist",
+    "declaration": true,
 
     /* Strict Type-Checking Options */
     "strict": true,

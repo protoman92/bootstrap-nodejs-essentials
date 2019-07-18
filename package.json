@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-nodejs-essentials",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Library of essentials for a bootstrapped Node.js project",
   "main": "index.js",
   "scripts": {
