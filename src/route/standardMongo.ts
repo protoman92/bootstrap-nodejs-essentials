@@ -21,8 +21,8 @@ function getData(mongoModel: MongoModel) {
       {
         query: {
           limit: reqLimit,
-          previous: prevObject,
-          next: nextObject,
+          previous: prevKey,
+          next: nextKey,
           ...reqQuery
         }
       },
@@ -32,7 +32,6 @@ function getData(mongoModel: MongoModel) {
         .map(([key, value]) => ({ [key]: { $in: value } }))
         .reduce((acc, val) => ({ ...acc, ...val }), {});
 
-      const collection = mongoModel.find(query);
       const limit = parseInt(reqLimit, undefined);
 
       const {
@@ -44,19 +43,12 @@ function getData(mongoModel: MongoModel) {
       } = await mongoModel.paginate<any>({
         query,
         limit,
-        next: nextObject,
-        previous: prevObject
+        next: nextKey,
+        previous: prevKey
       });
 
-      /**
-       * This is the raw count that ignores pagination, i.e. the number of items
-       * that matches the query.
-       */
-      const count: number = await collection.estimatedDocumentCount();
-
       res.status(200).json({
-        count,
-        data: results.map(({ _id: id, ...datum }) => ({ id, ...datum })),
+        results: results.map(({ _id: id, ...datum }) => ({ id, ...datum })),
         next,
         hasNext,
         previous,
