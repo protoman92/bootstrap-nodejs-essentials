@@ -81,7 +81,7 @@ function updateDataByID(mongoModel: MongoModel) {
 }
 
 /** Create a standard router that supports HTTP verbs using a mongodb model. */
-export default function(
+export function createStandardMongoDBRouter(
   router: Router,
   { mongoModel }: RouterParameters
 ): Router {
