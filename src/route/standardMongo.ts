@@ -21,6 +21,7 @@ function getData(mongoModel: MongoModel) {
       {
         query: {
           limit: reqLimit,
+          order,
           previous: prevKey,
           next: nextKey,
           ...reqQuery
@@ -33,6 +34,7 @@ function getData(mongoModel: MongoModel) {
         .reduce((acc, val) => ({ ...acc, ...val }), {});
 
       const limit = parseInt(reqLimit, undefined);
+      const sortAscending = `${order}`.toLowerCase().startsWith("asc");
 
       const {
         previous,
@@ -43,6 +45,7 @@ function getData(mongoModel: MongoModel) {
       } = await mongoModel.paginate<any>({
         query,
         limit,
+        sortAscending,
         next: nextKey,
         previous: prevKey
       });

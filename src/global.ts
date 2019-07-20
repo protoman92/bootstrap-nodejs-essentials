@@ -5,6 +5,7 @@ declare module "mongoose" {
   interface PaginateParameters {
     readonly query: {};
     readonly limit: number;
+    readonly sortAscending: boolean;
     readonly next?: string;
     readonly previous?: string;
     readonly after?: string;
