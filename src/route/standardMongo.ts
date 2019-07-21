@@ -10,8 +10,8 @@ interface RouterParameters {
 
 function createData(mongoModel: MongoModel) {
   return handleError(async ({ body }, res) => {
-    const [{ _id: id }] = await mongoModel.create([body]);
-    res.status(200).json({ id, ...body });
+    const [{ _id }] = await mongoModel.create([body]);
+    res.status(200).json({ ..._id, body });
   });
 }
 
@@ -22,18 +22,19 @@ function getData(mongoModel: MongoModel) {
         query: {
           limit: reqLimit,
           order,
+          sortField,
           previous: prevKey,
           next: nextKey,
-          ...reqQuery
+          ...propQuery
         }
       },
       res
     ) => {
-      const query = Object.entries(reqQuery)
+      const query = Object.entries(propQuery)
         .map(([key, value]) => ({ [key]: { $in: value } }))
         .reduce((acc, val) => ({ ...acc, ...val }), {});
 
-      const limit = parseInt(reqLimit, undefined);
+      const limit = parseInt(reqLimit, undefined) || 10;
       const sortAscending = `${order}`.toLowerCase().startsWith("asc");
 
       const {
@@ -45,13 +46,17 @@ function getData(mongoModel: MongoModel) {
       } = await mongoModel.paginate<any>({
         query,
         limit,
+        paginatedField: sortField,
         sortAscending,
         next: nextKey,
         previous: prevKey
       });
 
       res.status(200).json({
-        results: results.map(({ _id: id, ...datum }) => ({ id, ...datum })),
+        results,
+        limit,
+        order,
+        sortField,
         next,
         hasNext,
         previous,
@@ -62,16 +67,16 @@ function getData(mongoModel: MongoModel) {
 }
 
 function findDataByID(mongoModel: MongoModel) {
-  return handleError(async ({ params: { id } }, res) => {
-    const { _id, ...data } = await mongoModel.findById(id).lean();
-    res.status(200).json({ id, ...data });
+  return handleError(async ({ params: { id: _id } }, res) => {
+    const data = await mongoModel.findById(_id).lean();
+    res.status(200).json({ _id, ...data });
   });
 }
 
 function updateDataByID(mongoModel: MongoModel) {
-  return handleError(async ({ body, params: { id } }, res) => {
-    await mongoModel.updateOne({ _id: id }, body).lean();
-    res.status(200).json(body);
+  return handleError(async ({ body, params: { id: _id } }, res) => {
+    await mongoModel.updateOne({ _id }, body).lean();
+    res.status(200).json({ _id, ...body });
   });
 }
 

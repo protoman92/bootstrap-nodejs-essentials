@@ -2,9 +2,10 @@ import { AxiosRequestConfig } from "axios";
 import "./mongoPagination";
 
 declare module "mongoose" {
-  interface PaginateParameters {
+  interface PaginateParameters<T> {
     readonly query: {};
     readonly limit: number;
+    readonly paginatedField?: Extract<keyof T, string>;
     readonly sortAscending: boolean;
     readonly next?: string;
     readonly previous?: string;
@@ -22,7 +23,7 @@ declare module "mongoose" {
 
   interface Model<T extends Document, QueryHelpers = {}> {
     /** Paginate using mongodb cursor paginator. */
-    paginate<T>(parameters: PaginateParameters): Promise<PaginateResult<T>>;
+    paginate<T>(parameters: PaginateParameters<T>): Promise<PaginateResult<T>>;
   }
 }
 
