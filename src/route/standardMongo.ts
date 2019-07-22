@@ -25,13 +25,15 @@ function getData(mongoModel: MongoModel) {
           sortField,
           previous: prevKey,
           next: nextKey,
-          ...propQuery
+          ...restQuery
         }
       },
       res
     ) => {
-      const query = Object.entries(propQuery)
-        .map(([key, value]) => ({ [key]: { $in: value } }))
+      const query = Object.entries(restQuery)
+        .map(([key, value]) => ({
+          [key]: { $in: Array.isArray(value) ? value : [value] }
+        }))
         .reduce((acc, val) => ({ ...acc, ...val }), {});
 
       const limit = parseInt(reqLimit, undefined) || 10;
